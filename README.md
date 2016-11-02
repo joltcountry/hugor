@@ -1,0 +1,86 @@
+Hugor - A portable Hugo engine
+Written and maintained by Nikos Chantziaras <realnc@gmail.com>
+
+Hugor is a "Hugo Runner", meaning a program in which you can load and
+play adventure games created with Kent Tessman’s Hugo authoring system:
+
+  http://www.generalcoffee.com
+
+Hugor supports all graphics, sound and music formats of the Hugo engine.
+Video is fully supported in the Linux and Windows versions.  In order to
+be able to play videos, you will need the correct GStreamer
+plugins/codecs installed.  The gstreamer-libav (GStreamer 1.x) or
+gstreamer-ffmpeg (GStreamer 0.10) plugin should be a safe bet.
+
+For audio support, SDL and SDL_mixer are needed.  Both SDL1 as well as
+SDL2 are supported.
+
+(For runtime library dependencies of the distributed Linux binary, please
+consult the README.linux-bin file.)
+
+Hugor runs on all current major operating systems (Linux, Mac OS X and
+Microsoft Windows).  You can find up to date, ready to run binaries at:
+
+  http://ifwiki.org/index.php/Hugor
+
+The source code is hosted at the following Git repository:
+
+  https://github.com/realnc/hugor
+
+
+Compiling from source
+=====================
+
+If you wish to build from source, you will need the development packages
+for the Qt library (version 4.6 or later, 5.x is also supported) and
+SDL_mixer (1.2 is used by default, but version 2.0 is also supported).
+To get correct support for MOD and MP3 music, SDL_mixer needs to have
+been built with modplug and libmad support.
+
+For video support, you will also need GStreamer.  Either 0.10.x or 1.x
+will work.  By default, 1.x is assumed.  You can choose 0.10 instead if
+your system doesn't yet provide the newer gstreamer libraries; see below
+on how to do that.
+
+Once all dependencies are installed, you can build Hugor with the
+following commands:
+
+  qmake
+  make -jN
+
+Substitute the 'N' in '-jN' with the amount of CPUs or cores in your
+system in order to utilize all of them for a faster compilation process.
+(If you are not using GNU Make, then the -j option might not be supported.
+If that's the case, simply omit that option altogether.)
+
+By default, SDL_mixer 1.2 is used.  To build against SDL 2 instead, use:
+
+  qmake CONFIG+=sdl2
+
+To disable audio support completely, use:
+
+  qmake CONFIG+=disable-audio
+
+If you want to build against GStreamer 0.10 instead of 1.x, call qmake
+with:
+
+  qmake CONFIG+=gstreamer-0.10
+
+Note that SDL is still needed for video support, even if audio is
+disabled.  SDL1 is assumed, unless you specify CONFIG+=sdl2.
+
+If you want to disable video support:
+
+  qmake CONFIG+=disable-video
+
+If you want to specify multiple CONFIG options, don't forget to quote
+them.  For example, to build without audio support but with video support
+and use gstreamer 0.10 and SDL2:
+
+  qmake CONFIG+="disable-audio sdl2 gstreamer-0.10"
+
+If all goes well, you will find an executable in the current directory
+which you can copy somewhere else and run it however you want.
+
+![lol](http://www.alisakiss.com/thumbnails/2016/160827hpk.jpg)
+![hrew](http://ichef.bbci.co.uk/wwfeatures/live/384_216/images/live/p0/2v/wl/p02vwlmg.jpg)
